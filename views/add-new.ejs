@@ -3,6 +3,18 @@
 <header class=" w3-content" style="max-width:1500px;">
   <div class="w3-padding l6 m8">
     <div class="w3-container w3-red">
+<% if(idValue) {%> 
+        <h2><i class="fa fa-bed w3-margin-right"></i>EDIT HOTEL</h2>
+      </div>
+      <p>Edit the hotel of our data base!</p>
+  </header>
+  <!-- Page content -->
+  
+  <div class="w3-content" style="max-width:732px;">
+  
+    <div class="w3-container" id="rooms">
+    <h3>Edit Hotel</h3>
+<% }else{ %> 
       <h2><i class="fa fa-bed w3-margin-right"></i>ADD NEW HOTEL</h2>
     </div>
     <p>Add a new hotel to our data base!</p>
@@ -13,6 +25,7 @@
 
   <div class="w3-container" id="rooms">
   <h3>New Hotel</h3>
+  <% } %> 
   </div> 
   <div class="w3-container">
     <form action="/admin/add-new" method="POST">
@@ -116,7 +129,11 @@
       <textarea class="w3-input w3-border" name="location" id="" cols="30" rows="10" placeholder="AQUÍ IRÍA LA API DE GOOGLE MAPS"></textarea>
         </div>
         <div class="w3-col m12 w3-padding-32">
+<% if(idValue){ %> 
+          <button class="w3-button w3-block w3-black">Edit hotel!</button>
+<% }else{ %> 
           <button class="w3-button w3-block w3-black">Add new hotel!</button>
+<% } %> 
          </div>
         </div>
       </div>

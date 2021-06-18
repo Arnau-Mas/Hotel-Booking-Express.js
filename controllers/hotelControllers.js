@@ -3,7 +3,7 @@ const HotelRoom = require('../models/hotelModels');
 const router = express.Router();
 
 router.get("/", async (req,res)=>{
-    const allRooms = await HotelRoom.find(); //per recuperar tots els documents del model HotelRoom
+    const allRooms = await HotelRoom.find({downDate:undefined}); //per recuperar tots els documents del model HotelRoom excepte els q tenen downDate definida
     console.log("S'ha fet petició /");
     res.status(200).render("index", {
         rooms:allRooms,

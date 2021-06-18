@@ -90,44 +90,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   <!-- Slideshow Header -->
   <div class="w3-container" id="apartment">
     <h2 class="w3-text-black"><%= room.title %> </h2>
+    <% room.photos.forEach(photo => { %>
     <div class="w3-display-container mySlides">
-    <img src="<%= room.mainphoto %> " style="width:100%;margin-bottom:-6px">
+    <img src="<%=photo.url%> " style="width:100%;margin-bottom:-6px">
       <div class="w3-display-bottomleft w3-container w3-black">
-        <p><%= room.mainphotozone %> </p>
-      </div>
+        <p><%= photo.zone %> </p>
+      </div> <!-- ******************CANVIAR AIXO A .find O ALGUNA PROPIETAT D'ARRAY!!!***************** CANVIAR DADES MONGO a url photo i main****** -->
     </div>
-    <div class="w3-display-container mySlides">
-    <img src="<%= room.photo1url %>" style="width:100%;margin-bottom:-6px">
-      <div class="w3-display-bottomleft w3-container w3-black">
-        <p><%= room.photo1zone %></p>
-      </div>
-    </div>
-    <div class="w3-display-container mySlides">
-    <img src="<%= room.photo2url %>" style="width:100%;margin-bottom:-6px">
-      <div class="w3-display-bottomleft w3-container w3-black">
-        <p><%= room.photo2zone%></p>
-      </div>
-    </div>
-    <div class="w3-display-container mySlides">
-    <img src="<%= room.photo3url %>" style="width:100%;margin-bottom:-6px">
-      <div class="w3-display-bottomleft w3-container w3-black">
-        <p><%= room.photo3zone %></p>
-      </div>
+      <%  }); %> 
     </div>
   </div>
   <div class="w3-row-padding w3-section">
-    <div class="w3-col s3">
-      <img class="demo w3-opacity w3-hover-opacity-off" src="<%= room.mainphoto %>" style="width:100%;cursor:pointer" onclick="currentDiv(1)" title="<%= room.mainphotozone %>">
+    <% room.photos.forEach((photo, index) => { %> 
+    <div class="w3-col s3"> 
+      <img class="demo w3-opacity w3-hover-opacity-off" src="<%= photo.url %>" style="width:100%;cursor:pointer" onclick="currentDiv(<%=index%>)" title="<%= photo.zone %>">
     </div>
-    <div class="w3-col s3">
-      <img class="demo w3-opacity w3-hover-opacity-off" src="<%= room.photo1url %> " style="width:100%;cursor:pointer" onclick="currentDiv(2)" title="<%= room.photo1zone %> ">
-    </div>
-    <div class="w3-col s3">
-      <img class="demo w3-opacity w3-hover-opacity-off" src="<%= room.photo2url %>" style="width:100%;cursor:pointer" onclick="currentDiv(3)" title="<%= room.photo2zone %>">
-    </div>
-    <div class="w3-col s3">
-      <img class="demo w3-opacity w3-hover-opacity-off" src="<%= room.photo3url %>" style="width:100%;cursor:pointer" onclick="currentDiv(4)" title="<%= room.photo3zone %>">
-    </div>
+    <% }) %> 
   </div>
 
   <div class="w3-container">

@@ -66,19 +66,58 @@
   </div>
   <% } %> 
   <div class="w3-row-padding w3-padding-16">
+     
     <% rooms.forEach(room => { %> 
+    <% if(typeUser=="user"){ %>
     <div class="w3-third w3-margin-bottom">
-      <img src="<%= room.mainphoto %> " alt="Norway" style="width:100%">
+      <img src="<%= room.photos[0].url %>" alt="Norway" style="width:100%">
       <div class="w3-container w3-white">
         <h3><%= room.title %> </h3>
         <h6 class="w3-opacity"><%= room.price %>€</h6>
         <p>Single bed</p>
         <p><%= room.meters %> <sup>2</sup></p>
         <p class="w3-large"><i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i></p>
-        <% if(typeUser=="admin"){ %> 
+        <a href="/room/<%= room._id %>"><button class="w3-button w3-block w3-black w3-margin-bottom">Choose Room</button></a>
+        <% } %> 
+        <% if(typeUser=="admin"){ %>
+          <div class="w3-third w3-margin-bottom">
+            <% if(room.downDate==undefined){ %> 
+            <img src="<%= room.photos[0].url %> " alt="Norway" style="width:100%">
+            <% }else{ %> 
+              <img src="<%= room.photos[0].url %> " class="w3-opacity w3-greyscale-max" alt="Norway" style="width:100%">
+              <% } %> 
+            <div class="w3-container w3-white">
+              <% if(room.downDate==undefined){ %> 
+              <h3><%= room.title %> </h3>
+              <% }else{ %> 
+                <h3 class="w3-opacity"><%= room.title %> </h3>  
+              <% } %> 
+              <h6 class="w3-opacity"><%= room.price %>€</h6>
+              <% if(room.downDate==undefined){ %> 
+              <p>Single bed</p>
+              <% }else{ %> 
+                <p class="w3-opacity">Single bed</p>
+                <% } %> 
+                <% if(room.downDate==undefined){ %> 
+              <p><%= room.meters %> <sup>2</sup></p>
+              <% }else{ %> 
+              <p class="w3-opacity"><%= room.meters %> <sup>2</sup></p>
+              <% } %> 
+              <% if(room.downDate==undefined){ %> 
+              <p class="w3-large"><i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i></p>
+              <% }else{ %> 
+              <p class="w3-large w3-opacity"><i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i></p>
+              <% } %> 
+              <% if(room.downDate==undefined){ %> 
           <a href="/admin/room/<%= room._id %> "><button class="w3-button w3-block w3-black w3-margin-bottom">Administrate</button></a><!-- IMPORTANT, AL HREF HE POSAT EJO ROOM._ID, no serviria :idRoom -->
           <% }else{ %> 
-            <a href="/room/<%= room._id %>"><button class="w3-button w3-block w3-black w3-margin-bottom">Choose Room</button></a>
+          <a href="/admin/room/<%= room._id %> "><button class="w3-button w3-block w3-black w3-margin-bottom">Administrate</button></a>
+          <% } %> 
+          <% if(room.downDate == undefined ){ %> 
+          <a href="/admin/room/<%= room._id %>/delete"><button class="w3-button w3-block w3-red w3-margin-bottom">Remove</button></a>
+          <% }else{ %> 
+            <a href="/admin/room/<%= room._id %>/delete"><button class="w3-button w3-block w3-green w3-margin-bottom">Recover</button></a>
+            <% } %> 
             <% } %> 
       </div>
     </div>

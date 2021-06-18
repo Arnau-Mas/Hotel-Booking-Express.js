@@ -4,10 +4,13 @@ const router = express.Router();
 
 router.get("/", async (req,res)=>{
     const allRooms = await HotelRoom.find();
+    const roomsRemoved = await HotelRoom.find({downDate:undefined});
+    console.log("allRooms es:", allRooms);
     console.log("Petició feta a /admin");
     res.status(200).render("index",{
         rooms:allRooms,
-        typeUser:"admin"
+        typeUser:"admin",
+        roomsRemoved:roomsRemoved
     });
 })
 
@@ -20,15 +23,29 @@ router.get("/room/:idRoom", async(req,res)=>{
          console.log("actualitzem room ja existent");
          res.status(200).render("add-new", {
              typeUser:"admin",
-             room: locatedRoom, //ho posem aixi pq no entri en conflicte amb quan fem un edit de room idroom en mode admin
+             room: locatedRoom,
+             idValue: idRoom, //ho posem aixi pq no entri en conflicte amb quan fem un edit de room idroom en mode admin
          });
      }
+})
+
+//li diem q la room identificada amb l':idRoom ja no esta disponible
+router.get("/room/:idRoom/delete", async (req,res)=>{
+    ("S'ha fet un remove");
+    //busquem l'habitació a la col·lecció rooms
+    const idRoom = req.params.idRoom;
+    const room = await HotelRoom.findById(idRoom);
+    room.downDate = Date();
+    await room.save();
+
+    res.redirect("/admin");
 })
 
 router.get("/add-new",async(req,res)=>{
         res.status(200).render("add-new", {
             typeUser:"admin",
-            room: {}, //ho posem aixi pq no entri en conflicte amb quan fem un edit de room idroom en mode admin
+            room: {},
+            idValue:"", //ho posem aixi pq no entri en conflicte amb quan fem un edit de room idroom en mode admin
 })});
 
 router.post("/add-new", async (req,res)=>{
@@ -46,7 +63,7 @@ router.post("/add-new", async (req,res)=>{
     const price = req.body.price;
     if(idRoom){  //aqui fem el updateOne (1.recuperarfindbyid el docu, modificar los campos, hacer .save())
         const locatedRoom = await HotelRoom.findById(idRoom);
-        locatedRoom.title = title;
+        locatedRoom.title = title; //AIXO ESTA ACTUALITZANT LES DADES A TRAVÉS DE MONGOOSE
         locatedRoom.meters = meters;
         locatedRoom.mainphotourl = mainphotourl;
         locatedRoom.mainphotozone = mainphotozone;
@@ -58,7 +75,7 @@ router.post("/add-new", async (req,res)=>{
         locatedRoom.photo3url = photo3url;
         locatedRoom.price = price;
         await locatedRoom.save();
-        res.redirect("/admin");
+        res.redirect("/");
     }else{
     console.log("El req.body tiene", req.body);
 /*     const description = req.body.description;
@@ -84,15 +101,7 @@ router.post("/add-new", async (req,res)=>{
         title:title,
         price:price,
         meters:meters,
-        mainphoto:mainphotourl,
-        mainphotozone:mainphotozone,
-        photo1url:photo1url,
-        photo1zone:photo1zone,
-        photo2url:photo2url,
-        photo2zone:photo2zone,
-        photo3url:photo3url,
-        photo3zone:photo3zone,
-
+        photos:[{url:mainphotourl,zone:mainphotozone},{ url:photo1url, zone:photo1zone},{url:photo2url, zone:photo2zone},{url:photo3url, zone:photo3zone}],
     })
     await room.save();
 
@@ -100,6 +109,7 @@ router.post("/add-new", async (req,res)=>{
         submit:true,
         typeUser:"admin",
         room:{},
+        idValue:"",
     })
 }
 })
