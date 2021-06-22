@@ -20,5 +20,21 @@ router.get("/room/:idRoom", async (req,res)=>{
     })
 })
 
+router.get("/search", async (req,res)=>{
+    let query = {};
+    let price = req.query.price;
+    if(req.query.price){
+        query.price = {$lte: price}; // less than equal, precios hasta X
+        console.log("LA QUERY ES:", query);
+        const rooms = await HotelRoom.find(query);
+        res.status(200).render("index",{
+            rooms,
+            typeUser:"user"
+        })
+    }else{
+        res.redirect("/");
+    }
+
+})
 
 module.exports = router;

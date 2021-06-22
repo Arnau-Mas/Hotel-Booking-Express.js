@@ -14,6 +14,110 @@
   
     <div class="w3-container" id="rooms">
     <h3>Edit Hotel</h3>
+    <div class="w3-container">
+      <form action="/admin/add-new" method="POST">
+        <input class="w3-input w3-border" id="idRoom" name="idRoom" type="hidden" value="<%=room._id%>">
+        <label for="title"><i class="fa fa-home"></i> Title</label>
+        <input class="w3-input w3-border" id="title" value="<%=room.title%> " name="title" type="text" placeholder="Deluxe Room">
+        <label for="description"><i class="fa fa-pencil"></i> Description</label>
+        <textarea class="w3-input w3-border" name="description" id="description" cols="30" rows="10" placeholder="A beautifull apartment blablabla..."></textarea>
+        <div class=" w3-padding-16">
+          <input class="w3-check w3-margin-left" type="checkbox" name="airconditioning">
+          <label class="w3-margin-right">| Air-conditioning</label>
+          <input class="w3-check w3-margin-left" name="heating" type="checkbox">
+            <label class="w3-margin-right">| Heating</label>
+            <input class="w3-check w3-margin-left" name="reducedmobility" type="checkbox">
+            <label class="w3-margin-right">| Reduced mobility adapted</label>
+            <input class="w3-check" name="tv" type="checkbox">
+            <label class="w3-margin-right">| TV</label><br>
+            <input class="w3-check w3-margin-left" name="kitchen" type="checkbox">
+            <label class="w3-margin-right">| Kitchen</label>
+            <input class="w3-check" name="wifi" type="checkbox">
+            <label class="w3-margin-right">| Wi-Fi</label><br>
+        </div>
+        <div class="w3-col m3 w3-margin-left">
+          <label><i class="fa fa-caret-down"></i> Rooms number</label>
+          <select class="w3-select w3-input w3-border" name="roomsnum" >
+            <option value="" disabled selected>Choose your option</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="3">4 or more</option>
+          </select>
+        </div>
+        <div class="w3-col m3  w3-margin-left">
+          <label><i class="fa fa-bed"></i> Beds number</label>
+          <select class="w3-select w3-input w3-border" name="bedsnum" >
+            <option value="" disabled selected>Choose your option</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="3">4 or more</option>
+          </select>
+        </div>
+        <div class="w3-col m3 w3-margin-left">
+          <label><i class="fa fa-bath"></i> Toilets number</label>
+          <select class="w3-select w3-input w3-border" name="toiletsnum" >
+            <option value="" disabled selected>Choose your option</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="3">4 or more</option>
+          </select>
+        </div>
+        <div class="w3-col m5 w3-margin-left w3-margin-top">
+          <label><i class="fa fa-male"></i> Max people</label>
+          <input class="w3-input w3-border" name="maxpeople" type="number" placeholder="0">
+        </div>
+        <div class="w3-col m5 w3-margin-left w3-margin-top">
+          <label><i class="fa fa-signal"></i> m²</label>
+          <input class="w3-input w3-border"value="<%= room.meters %>"  name="meters" type="number" placeholder="0">
+        </div>
+        <div class="w3-col m11 w3-margin-left w3-margin-top">
+          <label><i class="fa fa-photo"></i> Main photography</label>
+          <input class="w3-input w3-border"value="<%=room.photos[0].url%>"  name="mainphotourl" type="url" placeholder="Insert URL" rquired>
+        </div>
+        <div class="w3-col m11 w3-margin-left w3-margin-top">
+          <label><i class="fa fa-photo"></i> Main photography Zone</label>
+          <input class="w3-input w3-border"value="<%=room.photos[0].zone%>" name="mainphotozone" type="text" placeholder="Living Room">
+        </div>
+        <div class="w3-col w3-margin-top">
+          <div class="w3-col m3 w3-margin-left ">
+            <label><i class="fa fa-file-photo-o"></i> Other photography 1</label>
+            <input class="w3-input w3-border" value="<%= room.photos[1].url %>" name="photo1url" type="url" placeholder="Insert URL">
+            <input class="w3-input w3-border" value="<%= room.photos[1].zone %>" name="photo1zone" type="text" placeholder="Room location">
+          </div>
+          <div class="w3-col m3 w3-margin-left">
+            <label><i class="fa fa-file-photo-o"></i> Other photography 2</label>
+            <input class="w3-input w3-border" value="<%=room.photos[2].url%>" name="photo2url" type="url" placeholder="Insert URL">
+            <input class="w3-input w3-border" value="<%=room.photos[2].zone%>" name="photo2zone" type="text" placeholder="Room location">
+          </div>
+          <div class="w3-col m3 w3-margin-left">
+            <label><i class="fa fa-file-photo-o"></i> Other photography 3</label>
+            <input class="w3-input w3-border" value="<%=room.photos[3].url%>" name="photo3url" type="url" placeholder="Insert URL">
+            <input class="w3-input w3-border" value="<%=room.photos[3].zone%>" name="photo3zone" type="text" placeholder="Room location">
+          </div>
+            <div class="w3-col m3 w3-margin-left w3-margin-top">
+            <label><i class="fa fa-calendar-o"></i> Check In</label>
+            <input class="w3-input w3-border" name="datein" type="date">
+            <label><i class="fa fa-calendar-o"></i> Check Out</label>
+            <input class="w3-input w3-border" name="dateout" type="date">
+          </div>
+          <div class="w3-col m8 w3-margin-left  w3-margin-top">
+            <label><i class="fa fa-pencil"></i> Rules</label>
+        <textarea class="w3-input w3-border" name="rules" id="" cols="20" rows="4" placeholder="A beautifull apartment blablabla..."></textarea>
+          </div>
+          <div class="w3-col m11 w3-margin-left  w3-margin-top">
+            <label><i class="fa fa-dollar"></i> Price</label>
+            <input class="w3-input w3-border" value="<%=room.price%>" name="price" type="number" placeholder="150" min="1" max="50000" required>
+          </div>
+          <div class="w3-col m11 w3-margin-left  w3-margin-top">
+            <label><i class="fa fa-pencil"></i> Location</label>
+        <textarea class="w3-input w3-border" name="location" id="" cols="30" rows="10" placeholder="AQUÍ IRÍA LA API DE GOOGLE MAPS"></textarea>
+          </div>
+          <div class="w3-col m12 w3-padding-32">
+          <button class="w3-button w3-block w3-black">Edit hotel!</button>
+        </div>
 <% }else{ %> 
       <h2><i class="fa fa-bed w3-margin-right"></i>ADD NEW HOTEL</h2>
     </div>
@@ -25,13 +129,11 @@
 
   <div class="w3-container" id="rooms">
   <h3>New Hotel</h3>
-  <% } %> 
-  </div> 
   <div class="w3-container">
     <form action="/admin/add-new" method="POST">
-      <input class="w3-input w3-border" id="idRoom" name="idRoom" type="hidden" value="<%=room._id%>">
+      <input class="w3-input w3-border" id="idRoom" name="idRoom" type="hidden">
       <label for="title"><i class="fa fa-home"></i> Title</label>
-      <input class="w3-input w3-border" id="title" value="<%=room.title%> " name="title" type="text" placeholder="Deluxe Room">
+      <input class="w3-input w3-border" id="title" name="title" type="text" placeholder="Deluxe Room">
       <label for="description"><i class="fa fa-pencil"></i> Description</label>
       <textarea class="w3-input w3-border" name="description" id="description" cols="30" rows="10" placeholder="A beautifull apartment blablabla..."></textarea>
       <div class=" w3-padding-16">
@@ -84,31 +186,31 @@
       </div>
       <div class="w3-col m5 w3-margin-left w3-margin-top">
         <label><i class="fa fa-signal"></i> m²</label>
-        <input class="w3-input w3-border"value="<%= room.meters %>"  name="meters" type="number" placeholder="0">
+        <input class="w3-input w3-border"  name="meters" type="number" placeholder="0">
       </div>
       <div class="w3-col m11 w3-margin-left w3-margin-top">
         <label><i class="fa fa-photo"></i> Main photography</label>
-        <input class="w3-input w3-border"value="<%= room.mainphoto %>"  name="mainphotourl" type="url" placeholder="Insert URL">
+        <input class="w3-input w3-border"  name="mainphotourl" type="url" placeholder="Insert URL">
       </div>
       <div class="w3-col m11 w3-margin-left w3-margin-top">
         <label><i class="fa fa-photo"></i> Main photography Zone</label>
-        <input class="w3-input w3-border"value="<%= room.mainphotozone %>" name="mainphotozone" type="text" placeholder="Living Room">
+        <input class="w3-input w3-border" name="mainphotozone" type="text" placeholder="Living Room">
       </div>
       <div class="w3-col w3-margin-top">
         <div class="w3-col m3 w3-margin-left ">
           <label><i class="fa fa-file-photo-o"></i> Other photography 1</label>
-          <input class="w3-input w3-border" value="<%= room.photo1url %>" name="photo1url" type="url" placeholder="Insert URL">
-          <input class="w3-input w3-border" value="<%= room.photo1zone %>" name="photo1zone" type="text" placeholder="Room location">
+          <input class="w3-input w3-border" name="photo1url" type="url" placeholder="Insert URL">
+          <input class="w3-input w3-border"  name="photo1zone" type="text" placeholder="Room location">
         </div>
         <div class="w3-col m3 w3-margin-left">
           <label><i class="fa fa-file-photo-o"></i> Other photography 2</label>
-          <input class="w3-input w3-border" value="<%=room.photo2url%>" name="photo2url" type="url" placeholder="Insert URL">
-          <input class="w3-input w3-border" value="<%=room.photo2zone%>" name="photo2zone" type="text" placeholder="Room location">
+          <input class="w3-input w3-border"  name="photo2url" type="url" placeholder="Insert URL">
+          <input class="w3-input w3-border"  name="photo2zone" type="text" placeholder="Room location">
         </div>
         <div class="w3-col m3 w3-margin-left">
           <label><i class="fa fa-file-photo-o"></i> Other photography 3</label>
-          <input class="w3-input w3-border" value="<%=room.photo3url%>" name="photo3url" type="url" placeholder="Insert URL">
-          <input class="w3-input w3-border" value="<%=room.photo3zone%>" name="photo3zone" type="text" placeholder="Room location">
+          <input class="w3-input w3-border"  name="photo3url" type="url" placeholder="Insert URL">
+          <input class="w3-input w3-border"  name="photo3zone" type="text" placeholder="Room location">
         </div>
           <div class="w3-col m3 w3-margin-left w3-margin-top">
           <label><i class="fa fa-calendar-o"></i> Check In</label>
@@ -122,19 +224,16 @@
         </div>
         <div class="w3-col m11 w3-margin-left  w3-margin-top">
           <label><i class="fa fa-dollar"></i> Price</label>
-          <input class="w3-input w3-border" value="<%=room.price%>" name="price" type="number" placeholder="150" min="1" max="50000" required>
+          <input class="w3-input w3-border"  name="price" type="number" placeholder="150" min="1" max="50000" required>
         </div>
         <div class="w3-col m11 w3-margin-left  w3-margin-top">
           <label><i class="fa fa-pencil"></i> Location</label>
       <textarea class="w3-input w3-border" name="location" id="" cols="30" rows="10" placeholder="AQUÍ IRÍA LA API DE GOOGLE MAPS"></textarea>
         </div>
         <div class="w3-col m12 w3-padding-32">
-<% if(idValue){ %> 
-          <button class="w3-button w3-block w3-black">Edit hotel!</button>
-<% }else{ %> 
-          <button class="w3-button w3-block w3-black">Add new hotel!</button>
-<% } %> 
-         </div>
+        <button class="w3-button w3-block w3-black">Add new hotel!</button>
+        </div>
+        <% } %>        
         </div>
       </div>
     </form>

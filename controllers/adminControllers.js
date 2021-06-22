@@ -41,6 +41,17 @@ router.get("/room/:idRoom/delete", async (req,res)=>{
     res.redirect("/admin");
 })
 
+router.get("/room/:idRoom/recover", async (req,res)=>{
+    ("S'ha fet un recover");
+    //busquem l'habitació a la col·lecció rooms
+    const idRoom = req.params.idRoom;
+    const room = await HotelRoom.findById(idRoom);
+    room.downDate = null;
+    await room.save();
+
+    res.redirect("/admin");
+})
+
 router.get("/add-new",async(req,res)=>{
         res.status(200).render("add-new", {
             typeUser:"admin",
@@ -61,30 +72,33 @@ router.post("/add-new", async (req,res)=>{
     const photo3zone = req.body.photo3zone;
     const photo3url = req.body.photo3url;
     const price = req.body.price;
-    if(idRoom){  //aqui fem el updateOne (1.recuperarfindbyid el docu, modificar los campos, hacer .save())
-        const locatedRoom = await HotelRoom.findById(idRoom);
-        locatedRoom.title = title; //AIXO ESTA ACTUALITZANT LES DADES A TRAVÉS DE MONGOOSE
-        locatedRoom.meters = meters;
-        locatedRoom.mainphotourl = mainphotourl;
-        locatedRoom.mainphotozone = mainphotozone;
-        locatedRoom.photo1url = photo1url;
-        locatedRoom.photo1zone = photo1zone;
-        locatedRoom.photo2zone = photo2zone;
-        locatedRoom.photo2url = photo2url;
-        locatedRoom.photo3zone = photo3zone;
-        locatedRoom.photo3url = photo3url;
-        locatedRoom.price = price;
-        await locatedRoom.save();
-        res.redirect("/");
-    }else{
-    console.log("El req.body tiene", req.body);
-/*     const description = req.body.description;
     const airconditioning = req.body.airconditioning;
     const heating = req.body.heating;
     const reducedmobility = req.body.reducedmobility;
     const tv = req.body.tv;
     const kitchen = req.body.kitchen;
     const wifi = req.body.wifi;
+    console.log("ELS SERVEIS SON****************:", wifi, kitchen, tv, airconditioning, heating, reducedmobility); 
+    if(idRoom){  //MODIFICAR HOTEL. aqui fem el recuperarfindbyid el docu, modificar los campos, hacer .save())
+        const locatedRoom = await HotelRoom.findById(idRoom);
+        locatedRoom.title = title; //AIXO ESTA ACTUALITZANT LES DADES A TRAVÉS DE MONGOOSE
+        locatedRoom.meters = meters;
+        locatedRoom.photos[0].url = mainphotourl;
+        locatedRoom.photos[0].zone = mainphotozone;
+        locatedRoom.photos[1].url = photo1url;
+        locatedRoom.photos[1].zone = photo1zone;
+        locatedRoom.photos[2].zone = photo2zone;
+        locatedRoom.photos[2].url = photo2url;
+        locatedRoom.photos[3].zone = photo3zone;
+        locatedRoom.photos[3].url = photo3url;
+        locatedRoom.price = price;
+        locatedRoom.services= [airconditioning,heating,reducedmobility,tv,kitchen,wifi];
+        await locatedRoom.save();
+        res.redirect("/admin");
+    }else{
+    //AQUEST ELSE ES EL D'AFEGIR NOVA HABITACIÓ
+    console.log("El req.body tiene", req.body);
+/*     const description = req.body.description;
     const roomsnum = req.body.roomsnum;
     const bedsnum = req.body.bedsnum;
     const toiletsnum = req.body.toiletsnum;
@@ -102,7 +116,10 @@ router.post("/add-new", async (req,res)=>{
         price:price,
         meters:meters,
         photos:[{url:mainphotourl,zone:mainphotozone},{ url:photo1url, zone:photo1zone},{url:photo2url, zone:photo2zone},{url:photo3url, zone:photo3zone}],
-    })
+        services:[airconditioning,heating,reducedmobility,tv,kitchen,wifi]    
+    },
+       
+    )
     await room.save();
 
     res.status(200).render("add-new", {
