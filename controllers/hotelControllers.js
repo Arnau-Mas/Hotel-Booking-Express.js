@@ -41,23 +41,88 @@ router.get("/search", async (req,res)=>{
 router.get("/availability", async (req,res)=>{
     let checkIn = req.query.CheckIn;
     let checkOut = req.query.CheckOut;
-    console.log("checkIn es:", checkIn);
+    let checkInParsed = new Date(checkIn);
+    let checkOutParsed = new Date(checkOut);
+    console.log("*********************", typeof checkInParsed);
+    console.log("EL CHECKIN PARSED:", checkInParsed);
+    console.log("checkIn es:",typeof checkIn);
     console.log("checkIn es:", checkOut); 
-     const recoveredBookings = await Booking.find({
-        $or: [
-            { $and: [ {checkIn:{$lt:checkIn}, checkOut:{$lt:checkIn}} ] },
-            { $and: [ {checkIn:{$gt:checkIn}, checkOut:{$gt:checkOut}} ] }
-        ]
-    }).populate("idRoom");
-    let newRooms = [];
-    let rooms = HotelRoom.find();
-    console.log(recoveredBookings);
-   console.log(newRooms);
+     const recoveredRooms = await HotelRoom.find().populate("reserves");
+     console.log(recoveredRooms);
+     let newRooms = [];
+     recoveredRooms.forEach( room =>{
 
+         if(room.reserves.length==0){
+             newRooms.push(room)
+         }else{
+        let contador=0;
+         room.reserves.forEach(reserve =>{
+            console.log("EL CHECKINPARSED ES MAYOR:", checkInParsed>reserve.checkIn);
+            console.log("EL CHECKINPARSED ES MENOR:",checkInParsed<reserve.checkIn);
+             console.log("fecha mongoDB es:",reserve.checkIn,"del tipo:",typeof reserve.checkIn);
+             console.log("fecha busqueda usuario es:",checkIn,"del tipo:",typeof checkIn);
+            if(reserve.checkIn<checkInParsed && reserve.checkOut<checkInParsed){
+                console.log("coincidencia");
+            }else if(reserve.checkIn>checkOutParsed && reserve.checkOut>checkOutParsed){
+                console.log("coincidencia");
+            }else{
+                contador++;
+            }
+         })
+         if(contador==0){
+            newRooms.push(room);
+            contador==0;
+           }
+        }
+     })
+   console.log("Les newRooms*****************", newRooms);
 
     res.render("index", {
-        rooms: recoveredBookings,/* He de recuperar primer la col·lecció de bookings i després relacionar-la */
-        typeUser:"searcher"
+        rooms: newRooms,/* He de recuperar primer la col·lecció de bookings i després relacionar-la */
+        typeUser:"user"
     });
 }) 
 module.exports = router;
+
+/* 
+router.get("/availability", async (req,res)=>{
+    let checkIn = req.query.CheckIn;
+    let checkOut = req.query.CheckOut;
+    console.log("checkIn es:", checkIn);
+    console.log("checkIn es:", checkOut); 
+     const recoveredRooms = await HotelRoom.find().populate("reserves");
+     console.log(recoveredRooms);
+     let newRooms = [];
+     recoveredRooms.forEach( room =>{
+         if(room.reserves.length==0){
+             newRooms.push(room)
+         }else{
+         room.reserves.forEach(reserve =>{
+            let fechaIn =`${reserve.checkIn.getFullYear()}-${reserve.checkIn.getMonth()}-${reserve.checkIn.getDate()}`;
+            let fechaOut=`${reserve.checkOut.getFullYear()}-${reserve.checkOut.getMonth()}-${reserve.checkOut.getDate()}`;
+            console.log("la fechaIn es:", fechaIn);
+            console.log("la fechaOut es:", fechaOut);
+            console.log("la checkIn es", checkIn);
+            console.log("la checkOut es:", checkOut);
+            console.log(fechaIn<checkIn);
+            console.log(fechaOut<checkOut);
+            if(fechaIn<checkIn && fechaOut<checkIn ){
+                newRooms.push({room})
+                console.log("FUNCIONA 1 ")
+            }else if(fechaIn>checkOut && fechaOut>checkOut){
+                newRooms.push({room})
+                console.log("FUNCIONA 2 ")
+            }else{
+                console.log("res");
+            }
+         })
+        }
+     }) */
+
+     /* 
+     /*   {
+    $or: [
+        { $and: [ {checkIn:{$lt:checkIn}, checkOut:{$lt:checkIn}} ] },
+        { $and: [ {checkIn:{$gt:checkIn}, checkOut:{$gt:checkOut}} ] }
+    ]
+} */ 

@@ -1,6 +1,6 @@
 <%- include("./partials/header.ejs") %> 
 
-<% if(typeUser=="user" || typeUser=="searcher"){ %>  <!-- AQUI POSEM IF I LO DE DINS DE L'IF NOMES ES PINTARA QUAN L'USER SIGUI ADMIN -->
+<% if(typeUser=="user"){ %>  <!-- AQUI POSEM IF I LO DE DINS DE L'IF NOMES ES PINTARA QUAN L'USER SIGUI ADMIN -->
 <header class="w3-display-container w3-content" style="max-width:1500px;">
   <img class="w3-image" src="/images/hotel.jpg" alt="The Hotel" style="min-width:1000px" width="1500" height="800">
   <div class="w3-display-left w3-padding w3-col l6 m8">
@@ -103,35 +103,6 @@
         <% } %> </p>
         <a href="/room/<%= room._id %>"><button class="w3-button w3-block w3-black w3-margin-bottom">Choose Room</button></a>
         <% } %> 
-        <% if(typeUser=="searcher"){ %>
-          <div class="w3-third w3-margin-bottom">
-            <img src="<%= room.idRoom.photos[0].url %>" alt="Norway" style="width:100%">
-            <div class="w3-container w3-white">
-              <h3><%= room.idRoom.title %> </h3>
-              <h6 class="w3-opacity"><%= room.price %>€</h6>
-              <p>Single bed</p>
-              <p><%= room.idRoom.meters %> <sup>2</sup></p>
-              <p class="w3-large">
-              <% if(room.idRoom.services[0]=="on"){ %> 
-                <i class="fa fa-thermometer-0"></i>
-              <% } %> 
-              <% if(room.idRoom.services[1]=="on"){ %> 
-                <i class="fa fa-thermometer-4"></i>
-              <% } %> 
-              <% if(room.idRoom.services[2]=="on"){ %> 
-                <i class="fa fa-wheelchair"></i>
-              <% } %> 
-              <% if(room.idRoom.services[3]=="on"){ %> 
-                <i class="fa fa-tv"></i>
-              <% } %> 
-              <% if(room.idRoom.services[4]=="on"){ %> 
-                <i class="fa fa-cutlery"></i>
-              <% } %> 
-              <% if(room.idRoom.services[5]=="on"){ %> 
-                <i class="fa fa-wifi"></i>
-              <% } %> </p>
-              <a href="/room/<%= room.idRoom._id %>"><button class="w3-button w3-block w3-black w3-margin-bottom">Choose Room</button></a>
-              <% } %> 
         <% if(typeUser=="admin"){ %>
           <div class="w3-third w3-margin-bottom">
             <% if(room.downDate==undefined){ %> 
@@ -212,7 +183,7 @@
     </div>
     <%    });  %> 
   </div>
-<% if(typeUser=="user" || typeUser=="searcher"){ %> 
+<% if(typeUser=="user"){ %> 
   <div class="w3-row-padding" id="about">
     <div class="w3-col l4 12">
       <h3>About</h3>
