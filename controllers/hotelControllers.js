@@ -42,18 +42,22 @@ router.get("/availability", async (req,res)=>{
     let checkIn = req.query.CheckIn;
     let checkOut = req.query.CheckOut;
     console.log("checkIn es:", checkIn);
-    console.log("checkIn es:", checkOut);   
+    console.log("checkIn es:", checkOut); 
      const recoveredBookings = await Booking.find({
         $or: [
             { $and: [ {checkIn:{$lt:checkIn}, checkOut:{$lt:checkIn}} ] },
             { $and: [ {checkIn:{$gt:checkIn}, checkOut:{$gt:checkOut}} ] }
         ]
+    }).populate("idRoom");
+    let newRooms = [];
+    let rooms = HotelRoom.find();
+    console.log(recoveredBookings);
+   console.log(newRooms);
+
+
+    res.render("index", {
+        rooms: recoveredBookings,/* He de recuperar primer la col·lecció de bookings i després relacionar-la */
+        typeUser:"searcher"
     });
-     console.log(recoveredBookings)
-     res.redirect("/");
-    // res.render("/index", {
-    //     rooms: a,/* He de recuperar primer la col·lecció de bookings i després relacionar-la */
-    //     typeUser:"user"
-    // });
-})
+}) 
 module.exports = router;

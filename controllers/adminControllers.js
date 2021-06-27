@@ -116,7 +116,7 @@ router.post("/add-new", async (req,res)=>{
         price:price,
         meters:meters,
         photos:[{url:mainphotourl,zone:mainphotozone},{ url:photo1url, zone:photo1zone},{url:photo2url, zone:photo2zone},{url:photo3url, zone:photo3zone}],
-        services:[airconditioning,heating,reducedmobility,tv,kitchen,wifi]    
+        services:[airconditioning,heating,reducedmobility,tv,kitchen,wifi],
     },
        
     )
