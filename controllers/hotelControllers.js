@@ -1,5 +1,6 @@
 const express = require('express');
 const HotelRoom = require('../models/hotelModels');
+const Booking = require("../models/bookingModels");
 const router = express.Router();
 
 router.get("/", async (req,res)=>{
@@ -37,4 +38,22 @@ router.get("/search", async (req,res)=>{
 
 })
 
+router.get("/availability", async (req,res)=>{
+    let checkIn = req.query.CheckIn;
+    let checkOut = req.query.CheckOut;
+    console.log("checkIn es:", checkIn);
+    console.log("checkIn es:", checkOut);   
+     const recoveredBookings = await Booking.find({
+        $or: [
+            { $and: [ {checkIn:{$lt:checkIn}, checkOut:{$lt:checkIn}} ] },
+            { $and: [ {checkIn:{$gt:checkIn}, checkOut:{$gt:checkOut}} ] }
+        ]
+    });
+     console.log(recoveredBookings)
+     res.redirect("/");
+    // res.render("/index", {
+    //     rooms: a,/* He de recuperar primer la col·lecció de bookings i després relacionar-la */
+    //     typeUser:"user"
+    // });
+})
 module.exports = router;

@@ -25,16 +25,17 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     <h3>from $<%= room.price %> </h3>
     <h6>per night</h6>
     <hr>
-    <form action="/action_page.php" target="_blank">
+    <form action="/booking/reserve" method="POST" target="_blank">
+      <input type="hidden" name="idRoom" value="<%=room.id%>"> <!-- es podria posar aixi o a action="/room/ejo room.id pero al ser un post millor guardar tot dins del form bé" -->
       <p><label><i class="fa fa-calendar-check-o"></i> Check In</label></p>
-      <input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckIn" required>          
+      <input class="w3-input w3-border" type="date" placeholder="DD MM YYYY" name="CheckIn" required>          
       <p><label><i class="fa fa-calendar-o"></i> Check Out</label></p>
-      <input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckOut" required>         
+      <input class="w3-input w3-border" type="date" placeholder="DD MM YYYY" name="CheckOut" required>         
       <p><label><i class="fa fa-male"></i> Adults</label></p>
       <input class="w3-input w3-border" type="number" value="1" name="Adults" min="1" max="6">              
       <p><label><i class="fa fa-child"></i> Kids</label></p>
       <input class="w3-input w3-border" type="number" value="0" name="Kids" min="0" max="6">
-      <p><button class="w3-button w3-block w3-red w3-left-align" type="submit"><i class="fa fa-search w3-margin-right"></i> Search availability</button></p>
+      <p><button class="w3-button w3-block w3-red w3-left-align" type="submit"><i class="fa fa-search w3-margin-right"></i> Reserve</button></p>
     </form>
   </div>
   <div class="w3-bar-block">

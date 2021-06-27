@@ -15,4 +15,5 @@ const HotelRoom = mongoose.model("Rooms", hotelRoomSchema); //associem l'schema 
 //exportar el model
 module.exports = HotelRoom;
 
+
 // HotelRoom --> .model te crea una instancia de la clase model. Se encarga de relacionar el esquema del dominio con la coleccion Apartments en base de datos. Establece los mecanismos suficientes y necesarios para ofrecer la mismas funcionalidades que el driver nativo de mongodb) el cual tiene funciones como el .find y demás que nos permitirá acceder a la base de datos tal como hacemos en en los controllers

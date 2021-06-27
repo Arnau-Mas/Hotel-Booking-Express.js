@@ -2,15 +2,17 @@ const express = require("express");
 const app = express();
 const hotelControllers = require("./controllers/hotelControllers");
 const adminControllers = require("./controllers/AdminControllers");
+const bookingControllers = require("./controllers/bookingControllers");
+
 const DataBase = require('./database/database');
 
 app.set("view engine", "ejs");
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
 
-app.use(hotelControllers);
+app.use("/", hotelControllers);
 app.use("/admin", adminControllers);
-
+app.use("/booking", bookingControllers);
 app.use((req,res)=>{
     res.status(404).send("<h1>Error 404: Pàgina no disponible</h1>")
 })

@@ -22,17 +22,17 @@
         <label for="description"><i class="fa fa-pencil"></i> Description</label>
         <textarea class="w3-input w3-border" name="description" id="description" cols="30" rows="10" placeholder="A beautifull apartment blablabla..."></textarea>
         <div class=" w3-padding-16">
-          <input class="w3-check w3-margin-left" type="checkbox" name="airconditioning">
+          <input class="w3-check w3-margin-left" type="checkbox" name="airconditioning" <%=(room.services[0])? "checked" : "" %>>
           <label class="w3-margin-right">| Air-conditioning</label>
-          <input class="w3-check w3-margin-left" name="heating" type="checkbox">
+          <input class="w3-check w3-margin-left" name="heating" type="checkbox"<%=(room.services[1])? "checked" : "" %>>
             <label class="w3-margin-right">| Heating</label>
-            <input class="w3-check w3-margin-left" name="reducedmobility" type="checkbox">
+            <input class="w3-check w3-margin-left" name="reducedmobility" type="checkbox"<%=(room.services[2])? "checked" : "" %>>
             <label class="w3-margin-right">| Reduced mobility adapted</label>
-            <input class="w3-check" name="tv" type="checkbox">
+            <input class="w3-check" name="tv" type="checkbox"<%=(room.services[3])? "checked" : "" %>>
             <label class="w3-margin-right">| TV</label><br>
-            <input class="w3-check w3-margin-left" name="kitchen" type="checkbox">
+            <input class="w3-check w3-margin-left" name="kitchen" type="checkbox"<%=(room.services[4])? "checked" : "" %>>
             <label class="w3-margin-right">| Kitchen</label>
-            <input class="w3-check" name="wifi" type="checkbox">
+            <input class="w3-check" name="wifi" type="checkbox"<%=(room.services[5])? "checked" : "" %>>
             <label class="w3-margin-right">| Wi-Fi</label><br>
         </div>
         <div class="w3-col m3 w3-margin-left">
@@ -75,7 +75,7 @@
         </div>
         <div class="w3-col m11 w3-margin-left w3-margin-top">
           <label><i class="fa fa-photo"></i> Main photography</label>
-          <input class="w3-input w3-border"value="<%=room.photos[0].url%>"  name="mainphotourl" type="url" placeholder="Insert URL" rquired>
+          <input class="w3-input w3-border"value="<%=room.photos[0].url%>"  name="mainphotourl" type="url" placeholder="Insert URL" required>
         </div>
         <div class="w3-col m11 w3-margin-left w3-margin-top">
           <label><i class="fa fa-photo"></i> Main photography Zone</label>
@@ -139,7 +139,7 @@
       <div class=" w3-padding-16">
         <input class="w3-check w3-margin-left" type="checkbox" name="airconditioning">
         <label class="w3-margin-right">| Air-conditioning</label>
-        <input class="w3-check w3-margin-left" name="heating" type="checkbox">
+        <input class="w3-check w3-margin-left" name="heating" type="checkbox" >
           <label class="w3-margin-right">| Heating</label>
           <input class="w3-check w3-margin-left" name="reducedmobility" type="checkbox">
           <label class="w3-margin-right">| Reduced mobility adapted</label>
@@ -278,3 +278,21 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
 
 </body>
 </html>
+
+<!-- 
+          <div class="w3-col m11 w3-margin-left w3-margin-top">
+          <label><i class="fa fa-photo"></i> Main photography</label>
+          <input class="w3-input w3-border"value="ejo (!room.photos)? '':room.photos[0].url ejo"  name="mainphotourl" type="url" placeholder="Insert URL" required>
+        </div>
+        <div class="w3-col m11 w3-margin-left w3-margin-top">
+          <label><i class="fa fa-photo"></i> Main photography Zone</label>
+          <input class="w3-input w3-border"value="ejo (!room.photos)? '':room.photos[0].zone ejo" name="mainphotozone" type="text" placeholder="Living Room">
+        </div>
+TERNARIO
+				a la esquerra				a la dreta
+(condicion a evaluar)? el q torna en cas de ser certa : el q torna en cas de ser incerta
+			
+x = 1 
+
+(x==1)? "HOLA" : "ADIOS"
+TERNARIO -->
