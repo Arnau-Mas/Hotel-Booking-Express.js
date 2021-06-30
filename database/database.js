@@ -1,4 +1,5 @@
-const uri="mongodb+srv://root:root@cluster0.a0cpg.mongodb.net/hotel-rooms"
+const {URI} = process.env;
+const uri=URI;
 
 const mongoose = require("mongoose");
 
