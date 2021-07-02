@@ -5,8 +5,14 @@ A Back-End project on __Node.js__ made with the __Express.js__ framework, using 
 
 
 ### The tasks I made ###
-* 
-*
-*
-*
-* 
+
+* Create Express.js app
+* Set up the routes and controllers 
+* Create MongoDB database
+* Create the Schemas and Models to process the appartments data
+* Access to MongoDB database to render/edit/update/delete appartments
+* Use EJS simple templating language to render the appartment data into the views
+* Adapt the views for type user (admin or normal user)
+* Set up the reserve system allows you to reserve an appartment between two dates
+* Create availability search shows you available appartments between two dates
+* Model-View-Controller Pattern
