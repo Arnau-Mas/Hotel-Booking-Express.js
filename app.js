@@ -11,7 +11,7 @@ const DataBase = require('./database/database');
 app.set("view engine", "ejs");
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
-
+app.get('/favicon.ico', (req, res) => res.status(204).send());
 app.use("/", hotelControllers);
 app.use("/admin", adminControllers);
 app.use("/booking", bookingControllers);
