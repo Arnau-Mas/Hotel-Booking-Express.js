@@ -5,10 +5,11 @@ const app = express();
 const hotelControllers = require("./controllers/hotelControllers");
 const adminControllers = require("./controllers/AdminControllers");
 const bookingControllers = require("./controllers/bookingControllers");
-const PORT = process.env.PORT || 3000;
 const DataBase = require('./database/database');
 
 app.set("view engine", "ejs");
+app.set("port", process.env.PORT || 3000
+)
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
 app.get('/favicon.ico', (req, res) => res.status(204).send());
@@ -21,7 +22,7 @@ app.use((req,res)=>{
 
 //Le pasamos una funcion para que cuando se conecte, la invoque y nos "devuelva" el control
 DataBase.connect(function(){ //aquesta funcio es el cb() que hem creat a database
-    app.listen(PORT);
+    app.listen(app.get("port"));
 });
 
 /* 
