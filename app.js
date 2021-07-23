@@ -5,7 +5,7 @@ const app = express();
 const hotelControllers = require("./controllers/hotelControllers");
 const adminControllers = require("./controllers/AdminControllers");
 const bookingControllers = require("./controllers/bookingControllers");
-
+const PORT = process.env.PORT || 3000;
 const DataBase = require('./database/database');
 
 app.set("view engine", "ejs");
@@ -21,7 +21,7 @@ app.use((req,res)=>{
 
 //Le pasamos una funcion para que cuando se conecte, la invoque y nos "devuelva" el control
 DataBase.connect(function(){ //aquesta funcio es el cb() que hem creat a database
-    app.listen(3000);
+    app.listen(PORT);
 });
 
 /* 
