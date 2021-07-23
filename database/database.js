@@ -1,12 +1,11 @@
 const {URI} = process.env;
-const uri=URI;
 
 const mongoose = require("mongoose");
 
 class DataBase{ //es fa la clase database per utilitzar-ho a app.js i fem metodes estatics pq quedi ordenat
 
     static connect(cb){ //cb = callback. invoca'm quan hagis acabat el q tens q fer
-        mongoose.connect(uri, {
+        mongoose.connect(URI, {
             useNewUrlParser:true, useUnifiedTopology:true
         }, (err)=>{
             if(err) throw err;
